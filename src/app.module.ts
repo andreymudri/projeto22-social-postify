@@ -4,8 +4,11 @@ import { AppService } from './app.service';
 import { MediasModule } from './medias/medias.module';
 import { PostsModule } from './posts/posts.module';
 import { PublicationsModule } from './publications/publications.module';
+import { MediasModule } from './medias/medias.module';
+import { PublicationsModule } from './publications/publications.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
