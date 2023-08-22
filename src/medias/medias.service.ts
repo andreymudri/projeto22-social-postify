@@ -1,7 +1,7 @@
-import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
-import { CreateMediaDto } from "./dto/create-media.dto";
-import { UpdateMediaDto } from "./dto/update-media.dto";
-import { MediasRepository } from "./medias.repository";
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateMediaDto } from './dto/create-media.dto';
+import { UpdateMediaDto } from './dto/update-media.dto';
+import { MediasRepository } from './medias.repository';
 @Injectable()
 export class MediasService {
   constructor(private readonly mediasRepository: MediasRepository) {}
@@ -10,7 +10,7 @@ export class MediasService {
       createMediaDto.username,
       createMediaDto.title,
     );
-    if (check) throw new HttpException("Media already exists", 409);
+    if (check) throw new HttpException('Media already exists', 409);
     return await this.mediasRepository.create(createMediaDto);
   }
 
@@ -40,7 +40,7 @@ export class MediasService {
   async remove(id: number) {
     const check = await this.mediasRepository.findOne(id);
     if (!check) {
-      throw new HttpException("Media not found", 404);
+      throw new HttpException('Media not found', 404);
     }
     return await this.mediasRepository.remove(id);
   }

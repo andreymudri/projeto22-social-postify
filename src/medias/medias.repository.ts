@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../prisma/prisma.service";
-import { CreateMediaDto } from "./dto/create-media.dto";
-import { UpdateMediaDto } from "./dto/update-media.dto";
-import { Medias as MediaModel } from "@prisma/client";
-import { MediaEntity } from "./entities/media.entity";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateMediaDto } from './dto/create-media.dto';
+import { UpdateMediaDto } from './dto/update-media.dto';
+import { Medias as MediaModel } from '@prisma/client';
+import { MediaEntity } from './entities/media.entity';
 
 @Injectable()
 export class MediasRepository {

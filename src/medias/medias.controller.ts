@@ -7,12 +7,12 @@ import {
   Delete,
   HttpException,
   Put,
-} from "@nestjs/common";
-import { MediasService } from "./medias.service";
-import { CreateMediaDto } from "./dto/create-media.dto";
-import { UpdateMediaDto } from "./dto/update-media.dto";
+} from '@nestjs/common';
+import { MediasService } from './medias.service';
+import { CreateMediaDto } from './dto/create-media.dto';
+import { UpdateMediaDto } from './dto/update-media.dto';
 
-@Controller("medias")
+@Controller('medias')
 export class MediasController {
   constructor(private readonly mediasService: MediasService) {}
 
@@ -21,7 +21,7 @@ export class MediasController {
     try {
       return this.mediasService.create(createMediaDto);
     } catch (error) {
-      if (error.message === "Media already exists") {
+      if (error.message === 'Media already exists') {
         throw new HttpException(error.message, 409);
       }
       throw new HttpException(error.message, 500);
@@ -33,28 +33,28 @@ export class MediasController {
     return await this.mediasService.findAll();
   }
 
-  @Get(":id")
-  findOne(@Param("id") id: string) {
+  @Get(':id')
+  findOne(@Param('id') id: string) {
     const result = this.mediasService.findOne(+id);
     if (result === undefined) {
-      throw new HttpException("Media not found", 404);
+      throw new HttpException('Media not found', 404);
     }
     return result;
   }
 
-  @Put(":id")
-  update(@Param("id") id: string, @Body() updateMediaDto: UpdateMediaDto) {
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateMediaDto: UpdateMediaDto) {
     try {
       return this.mediasService.update(+id, updateMediaDto);
     } catch (error) {
-      if (error.message === "Media not found") {
+      if (error.message === 'Media not found') {
         throw new HttpException(error.message, 404);
       }
       throw new HttpException(error.message, 500);
     }
   }
-  @Delete(":id")
-  async remove(@Param("id") id: string) {
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
     try {
       await this.mediasService.remove(+id);
       return {
@@ -62,7 +62,7 @@ export class MediasController {
         id,
       };
     } catch (error) {
-      if (error.message === "Media not found") {
+      if (error.message === 'Media not found') {
         throw new HttpException(error.message, 404);
       }
       throw new HttpException(error.message, 500);
