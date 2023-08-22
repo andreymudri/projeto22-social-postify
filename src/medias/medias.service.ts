@@ -1,26 +1,47 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMediaDto } from './dto/create-media.dto';
-import { UpdateMediaDto } from './dto/update-media.dto';
-
+import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
+import { CreateMediaDto } from "./dto/create-media.dto";
+import { UpdateMediaDto } from "./dto/update-media.dto";
+import { MediasRepository } from "./medias.repository";
 @Injectable()
 export class MediasService {
-  create(createMediaDto: CreateMediaDto) {
-    return 'This action adds a new media';
+  constructor(private readonly mediasRepository: MediasRepository) {}
+  async create(createMediaDto: CreateMediaDto) {
+    const check = await this.mediasRepository.findOneByUserName(
+      createMediaDto.username,
+      createMediaDto.title,
+    );
+    if (check) throw new HttpException("Media already exists", 409);
+    return await this.mediasRepository.create(createMediaDto);
   }
 
-  findAll() {
-    return `This action returns all medias`;
+  async findAll() {
+    return await this.mediasRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} media`;
+  async findOne(id: number) {
+    return await this.mediasRepository.findOne(id);
   }
 
-  update(id: number, updateMediaDto: UpdateMediaDto) {
-    return `This action updates a #${id} media`;
+  async update(id: number, updateMediaDto: UpdateMediaDto) {
+    const existingMedia = await this.mediasRepository.findOne(id);
+    if (!existingMedia) {
+      throw new NotFoundException();
+    }
+    if (!updateMediaDto.title) {
+      updateMediaDto.title = existingMedia.title;
+    }
+    if (updateMediaDto.username) {
+      if (existingMedia.username !== updateMediaDto.username) {
+        updateMediaDto.username = `http://www.${updateMediaDto.title}.com/${updateMediaDto.username}`;
+      }
+    }
+    return this.mediasRepository.update(id, updateMediaDto);
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} media`;
+  async remove(id: number) {
+    const check = await this.mediasRepository.findOne(id);
+    if (!check) {
+      throw new HttpException("Media not found", 404);
+    }
+    return await this.mediasRepository.remove(id);
   }
 }
