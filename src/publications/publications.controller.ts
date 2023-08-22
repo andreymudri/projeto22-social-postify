@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
 } from '@nestjs/common';
 import { PublicationsService } from './publications.service';
 import { CreatePublicationDto } from './dto/create-publication.dto';
@@ -17,17 +18,32 @@ export class PublicationsController {
 
   @Post()
   create(@Body() createPublicationDto: CreatePublicationDto) {
-    return this.publicationsService.create(createPublicationDto);
+    try {
+      return this.publicationsService.create(createPublicationDto);
+    } catch (error) {
+      throw new HttpException(error.message, 500);
+    }
   }
 
   @Get()
   findAll() {
-    return this.publicationsService.findAll();
+    try {
+      return this.publicationsService.findAll();
+    } catch (error) {
+      throw new HttpException(error.message, 500);
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.publicationsService.findOne(+id);
+    try {
+      return this.publicationsService.findOne(+id);
+    } catch (error) {
+      if (error.message === 'Publication not found') {
+        throw new HttpException(error.message, 404);
+      }
+      throw new HttpException(error.message, 500);
+    }
   }
 
   @Patch(':id')
@@ -35,11 +51,25 @@ export class PublicationsController {
     @Param('id') id: string,
     @Body() updatePublicationDto: UpdatePublicationDto,
   ) {
-    return this.publicationsService.update(+id, updatePublicationDto);
+    try {
+      return this.publicationsService.update(+id, updatePublicationDto);
+    } catch (error) {
+      if (error.message === 'Publication not found') {
+        throw new HttpException(error.message, 404);
+      }
+      throw new HttpException(error.message, 500);
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.publicationsService.remove(+id);
+    try {
+      return this.publicationsService.remove(+id);
+    } catch (error) {
+      if (error.message === 'Publication not found') {
+        throw new HttpException(error.message, 404);
+      }
+      throw new HttpException(error.message, 500);
+    }
   }
 }
