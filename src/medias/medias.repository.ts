@@ -48,6 +48,12 @@ export class MediasRepository {
     });
     return updatedMedia;
   }
+  async checkforPublications(id: number) {
+    const publications = await this.prisma.publications.findMany({
+      where: { mediaId: id },
+    });
+    return publications;
+  }
 
   async remove(id: number) {
     const result = await this.prisma.medias.delete({

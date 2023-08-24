@@ -42,6 +42,11 @@ export class MediasService {
     if (!check) {
       throw new HttpException('Media not found', 404);
     }
+    const checkforPublications =
+      await this.mediasRepository.checkforPublications(id);
+    if (checkforPublications.length > 0) {
+      throw new HttpException('There is a publication for this media', 403);
+    }
     return await this.mediasRepository.remove(id);
   }
 }

@@ -35,6 +35,11 @@ export class PostsService {
     if (!check) {
       throw new HttpException('Post not found', 404);
     }
+    const checkforPublications =
+      await this.postsRepository.checkforPublications(id);
+    if (checkforPublications.length > 0) {
+      throw new HttpException('There is a publication for this post', 403);
+    }
     return this.postsRepository.remove(id);
   }
 }

@@ -39,4 +39,10 @@ export class PostsRepository {
     });
     return remove;
   }
+  async checkforPublications(id: number) {
+    const publications = await this.prisma.publications.findMany({
+      where: { postId: id },
+    });
+    return publications;
+  }
 }

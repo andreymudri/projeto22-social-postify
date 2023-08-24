@@ -50,6 +50,7 @@ export class MediasController {
       if (error.message === 'Media not found') {
         throw new HttpException(error.message, 404);
       }
+
       throw new HttpException(error.message, 500);
     }
   }
@@ -64,6 +65,9 @@ export class MediasController {
     } catch (error) {
       if (error.message === 'Media not found') {
         throw new HttpException(error.message, 404);
+      }
+      if (error.message === 'There is a publication for this media') {
+        throw new HttpException(error.message, 403);
       }
       throw new HttpException(error.message, 500);
     }
