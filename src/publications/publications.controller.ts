@@ -3,10 +3,11 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   HttpException,
+  HttpCode,
+  Put,
 } from '@nestjs/common';
 import { PublicationsService } from './publications.service';
 import { CreatePublicationDto } from './dto/create-publication.dto';
@@ -26,9 +27,10 @@ export class PublicationsController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     try {
-      return this.publicationsService.findAll();
+      const publications = await this.publicationsService.findAll();
+      return publications;
     } catch (error) {
       throw new HttpException(error.message, 500);
     }
@@ -46,7 +48,7 @@ export class PublicationsController {
     }
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updatePublicationDto: UpdatePublicationDto,
@@ -61,6 +63,7 @@ export class PublicationsController {
     }
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: string) {
     try {

@@ -7,6 +7,7 @@ import {
   Delete,
   HttpException,
   Put,
+  HttpCode,
 } from '@nestjs/common';
 import { MediasService } from './medias.service';
 import { CreateMediaDto } from './dto/create-media.dto';
@@ -54,6 +55,7 @@ export class MediasController {
       throw new HttpException(error.message, 500);
     }
   }
+  @HttpCode(204)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {

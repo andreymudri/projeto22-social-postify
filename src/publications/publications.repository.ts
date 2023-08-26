@@ -35,8 +35,8 @@ export class PublicationsRepository {
     if (!check) {
       throw new HttpException('Publication not found', 403);
     }
-    if (check.date < new Date()) {
-      throw new HttpException('Publication already posted', 404);
+    if (check.date <= new Date()) {
+      throw new HttpException('Publication already posted', 401);
     }
     return this.prisma.publications.update({
       where: { id },
@@ -53,13 +53,13 @@ export class PublicationsRepository {
     });
   }
   async checkPosts(id: number) {
-    const post = await this.prisma.posts.findUnique({
+    const post = await this.prisma.posts.findFirst({
       where: { id },
     });
     return post;
   }
   async checkMedias(id: number) {
-    const media = await this.prisma.medias.findUnique({
+    const media = await this.prisma.medias.findFirst({
       where: { id },
     });
     return media;

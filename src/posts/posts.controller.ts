@@ -7,6 +7,7 @@ import {
   Delete,
   HttpException,
   Put,
+  HttpCode,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -58,6 +59,7 @@ export class PostsController {
     }
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: string) {
     try {
