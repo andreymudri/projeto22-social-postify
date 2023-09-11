@@ -1,73 +1,49 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Social Postify
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Elevator Pitch
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+In today's digital world, businesses must maintain an active and engaging presence on social media. **Social Postify** is your all-in-one solution for scheduling, managing, and monitoring social media posts across various platforms. With an intuitive web application built on **NestJS**, **Social Postify** empowers users to create and schedule custom posts for Facebook, Instagram, Twitter, and LinkedIn, streamlining their social media marketing efforts.
 
-## Description
+## Key Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Multi-Platform Posting:** Create and schedule posts across different social media networks, including Facebook, Instagram, Twitter, and LinkedIn, all from one centralized platform.
 
-## Installation
+- **Customized Posts:** Craft personalized posts with images, titles, and text to captivate your audience.
 
-```bash
-$ npm install
-```
+- **Scheduling:** Set specific dates and times for each post, ensuring optimal engagement with your target audience.
 
-## Running the app
+- **Clear Overview:** Get a comprehensive view of all your scheduled posts for effective planning and management.
 
-```bash
-# development
-$ npm run start
+## API Endpoints
 
-# watch mode
-$ npm run start:dev
+### Health
 
-# production mode
-$ npm run start:prod
-```
+- **GET** `/health`: Check the application's status. Returns "I'm okay!" with the status code `200 OK`.
 
-## Test
+### Medias
 
-```bash
-# unit tests
-$ npm run test
+- **POST** `/medias`: Create a new media entry with parameters `title` and `username`. Returns `400 Bad Request` for missing fields or `409 Conflict` for duplicate entries.
 
-# e2e tests
-$ npm run test:e2e
+- **GET** `/medias`: Retrieve all registered media entries in the system.
 
-# test coverage
-$ npm run test:cov
-```
+- **GET** `/medias/:id`: Retrieve a specific media entry by ID.
 
-## Support
+- **PUT** `/medias/:id`: Update a media entry by ID. Returns `404 Not Found` for non-existent entries or `409 Conflict` for duplicate entries.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **DELETE** `/medias/:id`: Delete a media entry by ID. Returns `404 Not Found` for non-existent entries or `403 Forbidden` if the media is associated with a publication.
 
-## Stay in touch
+### Posts
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **POST** `/posts`: Create a new post with parameters `title`, `text`, and an optional `image`. Returns `400 Bad Request` for missing fields.
 
-## License
+- **GET** `/posts`: Retrieve all registered posts in the system.
 
-Nest is [MIT licensed](LICENSE).
+- **GET** `/posts/:id`: Retrieve a specific post by ID.
+
+- **PUT** `/posts/:id`: Update a post by ID. Returns `404 Not Found` for non-existent entries.
+
+- **DELETE** `/posts/:id`: Delete a post by ID. Returns `404 Not Found` if the post doesn't exist or `403 Forbidden` if the post is associated with a publication.
+
+## Conclusion
+
+**Social Postify** is your go-to tool for efficient social media management. Whether you're a business, influencer, or content creator, our platform simplifies the process of creating, scheduling, and monitoring posts on multiple social media platforms. Start optimizing your social media strategy today with **Social Postify**!
