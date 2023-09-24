@@ -50,7 +50,7 @@ In today's digital world, businesses must maintain an active and engaging presen
 
 
 
-# How to Install Social Postify (Node.js Backend)
+# How to Install Social Postify
 
 Follow these steps to install the **Social Postify** Node.js backend application on your system.
 
