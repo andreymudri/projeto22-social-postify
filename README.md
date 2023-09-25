@@ -48,6 +48,11 @@ In today's digital world, businesses must maintain an active and engaging presen
 
 **Social Postify** is your go-to tool for efficient social media management. Whether you're a business, influencer, or content creator, our platform simplifies the process of creating, scheduling, and monitoring posts on multiple social media platforms. Start optimizing your social media strategy today with **Social Postify**!
 
+## Techonologies used:
+- NestJS
+- Prisma
+- Typescript
+
 
 
 # How to Install Social Postify
